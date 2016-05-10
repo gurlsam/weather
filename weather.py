@@ -49,6 +49,13 @@ print rain
 # weather_dict = dict(zip(hours, rain))
 # print weather_dict
 
+# LED strip configuration:
+LED_COUNT = 8 # Number of LED pixels.
+LED_PIN = 18 # GPIO pin connected to the pixels (must support PWM!).
+LED_FREQ_HZ = 800000 # LED signal frequency in hertz (usually 800khz)
+LED_DMA = 5 # DMA channel to use for generating signal (try 5)
+LED_INVERT = False # True to invert the signal (when using NPN transistor level shift)
+
 def colorWipe(strip, color, wait_ms=50):
  """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()):
