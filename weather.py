@@ -49,11 +49,23 @@ print rain
 # weather_dict = dict(zip(hours, rain))
 # print weather_dict
 
+def colorWipe(strip, color, wait_ms=50):
+ """Wipe color across display a pixel at a time."""
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+
 #Create NeoPixel object with appropriate configuration.
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 # Intialize the library (must be called once before other functions).
 strip.begin()
 print strip.numPixels()
+print strip.getPixelColor(1)
+colorWipe(strip, Color(0, 0, 255)) #Green Wipe
+
+# strip.setPixelColorRGB(1, 128, 0, 128)
+# strip.show()
 
 # for i in rain:
 #     if i < 50:
