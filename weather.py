@@ -57,7 +57,7 @@ LED_DMA = 5 # DMA channel to use for generating signal (try 5)
 LED_INVERT = False # True to invert the signal (when using NPN transistor level shift)
 
 def colorWipe(strip, color, wait_ms=50):
- """Wipe color across display a pixel at a time."""
+#  """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
         strip.show()
