@@ -10,6 +10,9 @@ from neopixel import *
 # Hourly weather available thru accuweather
 url = "http://www.accuweather.com/en/at/salzburg/30760/hourly-weather-forecast/30760"
 # url = "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328"
+# url = "http://www.accuweather.com/en/au/sydney/22889/hourly-weather-forecast/22889"
+# url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
+
 page = urllib2.urlopen(url)
 soup = BeautifulSoup(page, 'html.parser')
                            
@@ -87,7 +90,7 @@ if count < 8:
             print "Grab your brollie!"
             strip.setPixelColorRGB(count, 0, 255, 0)
         count += 1
-        time.sleep(0.5)
+#         time.sleep(0.5)
 
 strip.show()
 
