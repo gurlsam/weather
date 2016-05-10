@@ -82,11 +82,12 @@ if count < 8:
             strip.setPixelColorRGB(count, 255, 0, 0)
         elif i < 66:
             print "Look a bit dodgy out there"
-            strip.setPixelColorRGB(count, 0,255, 0)
+            strip.setPixelColorRGB(count, 0, 0, 255)
         else:
             print "Grab your brollie!"
-            strip.setPixelColorRGB(count, 0, 0, 255)
+            strip.setPixelColorRGB(count, 0, 255, 0)
         count += 1
+        time.sleep(0.5)
 
 strip.show()
 
