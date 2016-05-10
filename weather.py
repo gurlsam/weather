@@ -67,15 +67,24 @@ def colorWipe(strip, color, wait_ms=50):
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 # Intialize the library (must be called once before other functions).
 strip.begin()
+strip.setBrightness(100)
+
 print strip.numPixels()
 print strip.getPixelColor(1)
-colorWipe(strip, Color(0, 0, 255)) #Green Wipe
+# colorWipe(strip, Color(0, 0, 255)) #Green Wipe
+# strip.setPixelColorRGB(0, 255, 0, 0) #set to green
 
-# strip.setPixelColorRGB(1, 128, 0, 128)
-# strip.show()
+count = 0
+if count < 8:
+    for i in rain:
+        if i < 50:
+            print "Low chance of rain"
+            strip.setPixelColorRGB(count, 255, 0, 0)
+        else:
+            print "Grab your brollie!"
+            strip.setPixelColorRGB(count, 0, 0, 255)
+        count =+ 1
 
-# for i in rain:
-#     if i < 50:
-#         print "Low chance of rain"
-#     else:
-#         print "Grab your brollie!"
+strip.show()
+
+
