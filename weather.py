@@ -1,5 +1,8 @@
+import time
 import urllib2
 from bs4 import BeautifulSoup
+from neopixel import *
+
 # url = "http://www.wunderground.com/history/airport/KBUF/2011/1/1/DailyHistory.html?theprefset=SHOWMETAR&theprefvalue=1&format=1"
 # url = "https://www.wunderground.com/at/salzburg/zmw:00000.1.11350/precipitation"
 # url = "http://weather.weatherbug.com/weather-forecast/hourly/salzburg-salzburg-au"
@@ -43,10 +46,17 @@ for row in table.findAll('tr')[8:9]:
 print hours
 print rain
 
-for i in rain:
-    if i < 50:
-        print "Low chance of rain"
-    else:
-        print "Grab your brollie!"
 # weather_dict = dict(zip(hours, rain))
 # print weather_dict
+
+#Create NeoPixel object with appropriate configuration.
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
+# Intialize the library (must be called once before other functions).
+strip.begin()
+print strip.numPixels()
+
+# for i in rain:
+#     if i < 50:
+#         print "Low chance of rain"
+#     else:
+#         print "Grab your brollie!"
