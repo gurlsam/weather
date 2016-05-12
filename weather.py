@@ -80,18 +80,21 @@ strip.setBrightness(100)
 count = 0
 if count < 8:
     for i in rain:
-        if i < 33:
+        if i < 30:
             print "Low chance of rain"
-            strip.setPixelColorRGB(count, 255, 0, 0)
-        elif i < 66:
-            print "Look a bit dodgy out there"
-            strip.setPixelColorRGB(count, 0, 0, 255)
+            strip.setPixelColorRGB(count, 255, 0, 0) #GRB
+            strip.show()
+        elif i < 60:
+            print "Looks a bit dodgy out there"
+            strip.setPixelColorRGB(count, 191, 255, 0)
+            strip.show()
         else:
             print "Grab your brollie!"
             strip.setPixelColorRGB(count, 0, 255, 0)
+            strip.show()
         count += 1
 #         time.sleep(0.5)
 
-strip.show()
+# strip.show()
 
 
