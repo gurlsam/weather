@@ -3,7 +3,7 @@ import urllib2
 import json, requests
 from pprint import pprint
 from bs4 import BeautifulSoup
-from neopixel import *
+# from neopixel import *
 import ipgetter
 
 ## WEBSCRAPING SECTION ##
@@ -14,7 +14,6 @@ weather_url = "http://www.accuweather.com/en/at/salzburg/30760/hourly-weather-fo
 # weather_url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
 page = urllib2.urlopen(weather_url)
 weather_soup = BeautifulSoup(page, 'html.parser')
-print weather_soup.title
 table = weather_soup.find('table')
 hours = []
 for row in table.findAll('tr')[7:8]:
@@ -56,9 +55,15 @@ myloc_json = requests.get(myloc_url).json()
 myloc_name = myloc_json["EnglishName"]
 myloc_key = myloc_json["Key"]
 weather_hourly_url = wapi_hourly + myloc_key + "?apikey=" + wapi_key
+# weather_hourly_url = wapi_hourly + "30332" + "?apikey=" + wapi_key #Linz
+# weather_hourly_url = wapi_hourly + "326269" + "?apikey=" + wapi_key #Maidenhead
+# weather_hourly_url = wapi_hourly + "53286" + "?apikey=" + wapi_key #Vancouver
+# weather_hourly_url = wapi_hourly + "328328" + "?apikey=" + wapi_key #London
+# weather_hourly_url = wapi_hourly + "22889" + "?apikey=" + wapi_key #Sydney
+# weather_hourly_url = wapi_hourly + "178087" + "?apikey=" + wapi_key #Berlin
 weather_hourly_json = requests.get(weather_hourly_url).json()
 # print weather_hourly_json[1]
-print "Location: " + myloc_name
+print "Location: " + myloc_name + " " + myloc_key
 precipitation = []
 for i in weather_hourly_json:
     precipitation.append(i["PrecipitationProbability"])
