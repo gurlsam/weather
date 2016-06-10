@@ -7,15 +7,21 @@ from neopixel import *
 import ipgetter
 import RPi.GPIO as GPIO
 
+locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269, 
+                  "Vancouver": 53286, "London": 328328, "Sydney": 22889, 
+                  "Berlin": 178087}
+
 ## Function to initiate button ##
-def button():
+def button(cities):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     while True:
         input_state = GPIO.input(23)
         if input_state == False:
             print ('Button Pressed')
-            time.sleep(0.2)
+            for i in cities:
+                print i
+                time.sleep(0.2)
 
 ## Function to scrape hourly weather ##
 def scrape_weather(weather_url):
@@ -120,9 +126,9 @@ def main():
 #     weather_url = "http://www.accuweather.com/en/au/sydney/22889/hourly-weather-forecast/22889"
 #     weather_url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
 #     data_scraped = scrape_weather(weather_url)
-#     button()
-    rain_forecast = weather_api()
-    light_it_up(rain_forecast)
+    button(locations_dict)
+#     rain_forecast = weather_api()
+#     light_it_up(rain_forecast)
 #     colorWipe(strip, Color(0, 0, 255)) #Green Wipe
 
 if __name__ == '__main__':
