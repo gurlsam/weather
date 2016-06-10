@@ -14,17 +14,21 @@ locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269,
 ## Function to initiate button ##
 def button(cities):
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+#     GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(23, GPIO.IN)
     print 'Press the button to cycle thru cities. Use CTRL-C to exit'
+    prev_input = 1
     while True:
-        for i in cities:
-            if (GPIO.input(23)) == 1:
+#         for i in cities:
+        input = GPIO.input(23)
+        if ((not prev_input) and input):
 #             input_state = GPIO.input(23)
 #             if input_state == False:
-                print ('Button pressed')
-                print i
-                GPIO.cleanup()
-                time.sleep(0.2)
+            print ('Button pressed')
+#             print i
+            prev_input = input
+#             GPIO.cleanup()
+            time.sleep(0.05)
 
 ## Function to scrape hourly weather ##
 def scrape_weather(weather_url):
