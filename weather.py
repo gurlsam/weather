@@ -83,7 +83,7 @@ def colorWipe(strip, color, wait_ms=50):
         time.sleep(wait_ms/1000.0)
         
 ## Function to send weather data to Neopixel LEDs ##
-def light_it_up(list):
+def light_it_up(forecast):
     LED_COUNT = 8 # Number of LED pixels.
     LED_PIN = 18 # GPIO pin connected to the pixels (must support PWM!).
     LED_FREQ_HZ = 800000 # LED signal frequency in hertz (usually 800khz)
@@ -98,7 +98,7 @@ def light_it_up(list):
     # strip.setPixelColorRGB(0, 255, 0, 0) #set to green
     count = 0
     if count < 8:
-        for i in precipitation:
+        for i in forecast:
             if i < 30:
                 print "Low chance of rain"
                 strip.setPixelColorRGB(count, 255, 0, 0) #GRB
