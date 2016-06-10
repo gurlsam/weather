@@ -21,14 +21,12 @@ def button(cities):
     while True:
 #         for i in cities:
         input = GPIO.input(23)
-        if ((not prev_input) and input):
-#             input_state = GPIO.input(23)
-#             if input_state == False:
+        if (prev_input and not input):
             print ('Button pressed')
-#             print i
             prev_input = input
 #             GPIO.cleanup()
             time.sleep(0.05)
+        prev_input = input
 
 ## Function to scrape hourly weather ##
 def scrape_weather(weather_url):
