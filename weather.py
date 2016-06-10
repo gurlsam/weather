@@ -15,9 +15,9 @@ locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269,
 def button(cities):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    input_state = GPIO.input(23)
     for i in cities:
         while True:
+            input_state = GPIO.input(23)
             if input_state == False:
                 print ('Button Pressed')
                 print i
