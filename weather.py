@@ -19,14 +19,13 @@ def button(cities):
     print 'Press the button to cycle thru cities. Use CTRL-C to exit'
     prev_input = 1
     while True:
-#         for i in cities:
         input = GPIO.input(23)
-        if (prev_input and not input):
-            print ('Button pressed')
+        for i in cities:
+            if (prev_input and not input):
+                print ('Button pressed')
+                print i
+                time.sleep(0.05)
             prev_input = input
-#             GPIO.cleanup()
-            time.sleep(0.05)
-        prev_input = input
 
 ## Function to scrape hourly weather ##
 def scrape_weather(weather_url):
