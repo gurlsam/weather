@@ -111,15 +111,15 @@ def light_it_up(forecast):
     if count < 8:
         for i in forecast:
             if i < 30:
-                print "Low chance of rain"
+                print "Probability is " + " so a low chance of rain"
                 strip.setPixelColorRGB(count, 255, 0, 0) #GRB
                 strip.show()
             elif i < 60:
-                print "Looks a bit dodgy out there"
+                print "Probability is " + " , it's looking a bit dodgy out there"
                 strip.setPixelColorRGB(count, 191, 255, 0)
                 strip.show()
             else:
-                print "Grab your brollie!"
+                print "Probability is " + " so grab your brollie!"
                 strip.setPixelColorRGB(count, 0, 255, 0)
                 strip.show()
             count += 1
