@@ -3,7 +3,7 @@ import urllib2
 import json, requests
 from pprint import pprint
 from bs4 import BeautifulSoup
-# from neopixel import *
+from neopixel import *
 import ipgetter
 import RPi.GPIO as GPIO
 
@@ -71,6 +71,7 @@ def weather_api():
     myloc_name = myloc_json["EnglishName"]
     myloc_key = myloc_json["Key"]
     weather_hourly_url = wapi_hourly + myloc_key + "?apikey=" + wapi_key
+    # weather_hourly_url = wapi_hourly + "30760" + "?apikey=" + wapi_key #Salzburg
     # weather_hourly_url = wapi_hourly + "30332" + "?apikey=" + wapi_key #Linz
     # weather_hourly_url = wapi_hourly + "326269" + "?apikey=" + wapi_key #Maidenhead
     # weather_hourly_url = wapi_hourly + "53286" + "?apikey=" + wapi_key #Vancouver
@@ -130,9 +131,9 @@ def main():
 #     weather_url = "http://www.accuweather.com/en/au/sydney/22889/hourly-weather-forecast/22889"
 #     weather_url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
 #     data_scraped = scrape_weather(weather_url)
-    button(locations_dict)
-#     rain_forecast = weather_api()
-#     light_it_up(rain_forecast)
+#     button(locations_dict)
+    rain_forecast = weather_api()
+    light_it_up(rain_forecast)
 #     colorWipe(strip, Color(0, 0, 255)) #Green Wipe
 
 if __name__ == '__main__':
