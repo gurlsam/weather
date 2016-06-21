@@ -110,6 +110,7 @@ def weather_api():
     precipitation_list = []
     for i in weather_hourly_json:
         precipitation_list.append(i["PrecipitationProbability"])
+    print precipitation_list
     light_it_up(precipitation_list)
     return
 
@@ -123,6 +124,7 @@ def colorWipe(strip, color, wait_ms=50):
         
 ## Function to send weather data to Neopixel LEDs ##
 def light_it_up(forecast):
+    print forecast
     LED_COUNT = 8 # Number of LED pixels.
     LED_PIN = 18 # GPIO pin connected to the pixels (must support PWM!).
     LED_FREQ_HZ = 800000 # LED signal frequency in hertz (usually 800khz)
