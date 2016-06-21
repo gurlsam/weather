@@ -9,6 +9,7 @@ import ipgetter
 import RPi.GPIO as GPIO
 import Adafruit_MPR121.MPR121 as MPR121
 
+salzburg = "30760"
 locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269, 
                   "Vancouver": 53286, "London": 328328, "Sydney": 22889, 
                   "Berlin": 178087}
@@ -30,6 +31,8 @@ def cap_sensor():
             pin_bit = 1 << i
             if current_touched & pin_bit and not last_touched & pin_bit:
                 print ('{0} touched!' .format(i))
+                rain_forecast = weather_api()
+                light_it_up(rain_forecast)
             if not current_touched & pin_bit and last_touched & pin_bit:
                 print ('{0} released!' .format(i))
         last_touched = current_touched
