@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from neopixel import *
 import ipgetter
 import RPi.GPIO as GPIO
-import Adafruit_MPR121 as MPR121
+import Adafruit_MPR121.MPR121 as MPR121
 
 locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269, 
                   "Vancouver": 53286, "London": 328328, "Sydney": 22889, 
