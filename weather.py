@@ -31,8 +31,7 @@ def cap_sensor():
             pin_bit = 1 << i
             if current_touched & pin_bit and not last_touched & pin_bit:
                 print ('{0} touched!' .format(i))
-                rain_forecast = weather_api()
-                light_it_up(rain_forecast)
+                weather_api()
             if not current_touched & pin_bit and last_touched & pin_bit:
                 print ('{0} released!' .format(i))
         last_touched = current_touched
@@ -111,7 +110,8 @@ def weather_api():
     precipitation_list = []
     for i in weather_hourly_json:
         precipitation_list.append(i["PrecipitationProbability"])
-    return precipitation_list
+    light_it_up(precipitation_list)
+    return
 
 def colorWipe(strip, color, wait_ms=50):
     ## Wipe color across display a pixel at a time
