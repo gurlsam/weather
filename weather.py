@@ -1,3 +1,4 @@
+import sys
 import time
 import urllib2
 import json, requests
@@ -6,10 +7,34 @@ from bs4 import BeautifulSoup
 from neopixel import *
 import ipgetter
 import RPi.GPIO as GPIO
+import Adafruit_MPR121 as MPR121
 
 locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269, 
                   "Vancouver": 53286, "London": 328328, "Sydney": 22889, 
                   "Berlin": 178087}
+
+## Function for capacitive touch sensor
+def cap_sensor():
+    # create MPR121 instance
+    cap = MPR121.MPR121()
+    # initialise comms using i2c bus
+    # default address is 0x5a
+    if not cap.begin():
+        print ("Error initializing MPR121. Check wiring!")
+        sys.exit()
+    print ("Capacitive Sensor. Press CTRL-C to end")
+    last_touched = cap.touched()
+    while True:
+        current_touched = cap.touched()
+        for i in range(12):
+            pin_bit = 1 << i
+            if current_touched & pin_bit and not last_touched & pin_bit:
+                print ('{0} touched!' .format(i))
+            if not current_touched & pin_bit and last_touched & pin_bit:
+                print ('{0} released!' .format(i))
+        last_touched = current_touched
+        time.sleep(0.1)
+    
 
 ## Function to initiate button ##
 def button(cities):
@@ -132,8 +157,9 @@ def main():
 #     weather_url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
 #     data_scraped = scrape_weather(weather_url)
 #     button(locations_dict)
-    rain_forecast = weather_api()
-    light_it_up(rain_forecast)
+#     rain_forecast = weather_api()
+#     light_it_up(rain_forecast)
+    cap_sensor()
 #     colorWipe(strip, Color(0, 0, 255)) #Green Wipe
 
 if __name__ == '__main__':
