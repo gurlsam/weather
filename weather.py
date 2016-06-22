@@ -1,8 +1,8 @@
 import sys
 import time
-import atexit
-import logging
-import subprocess
+# import atexit
+# import logging
+# import subprocess
 import urllib2
 import json, requests
 from pprint import pprint
@@ -39,12 +39,12 @@ def cap_sensor():
         for pin, key in key_mapping.iteritems():
             pin_bit = 1 << pin
             if current_touched & pin_bit and not last_touched & pin_bit:
-                print ('{0} touched!'.format(i))
+                print ('{0} touched!'.format(pin))
 #                 logging.debug('Input {0} touched'.format(pin))
                 print pin,key
                 weather_api(key)
             if not current_touched & pin_bit and last_touched & pin_bit:
-                print ('{0} released!'.format(i))
+                print ('{0} released!'.format(pin))
         last_touched = current_touched
         time.sleep(0.1)
     
@@ -98,16 +98,16 @@ def scrape_weather(weather_url):
 
 ## Function to get Weather via API ##
 def weather_api(location):
-    myip = ipgetter.myip()
-    locator_api = "http://dataservice.accuweather.com/locations/v1/cities/ipaddress"
+#     myip = ipgetter.myip()
+#     locator_api = "http://dataservice.accuweather.com/locations/v1/cities/ipaddress"
     wapi_key = "a8Rw8CQWQCN2KabjmJRnbkG7UdldAlIX"
     wapi_hourly = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"
     
     ## Get data
-    myloc_url = locator_api + "?apikey=" + wapi_key + "&q=" + myip
-    myloc_json = requests.get(myloc_url).json()
-    myloc_name = myloc_json["EnglishName"]
-    myloc_key = myloc_json["Key"]
+#     myloc_url = locator_api + "?apikey=" + wapi_key + "&q=" + myip
+#     myloc_json = requests.get(myloc_url).json()
+#     myloc_name = myloc_json["EnglishName"]
+#     myloc_key = myloc_json["Key"]
 #     weather_hourly_url = wapi_hourly + myloc_key + "?apikey=" + wapi_key
     weather_hourly_url = wapi_hourly + location + "?apikey=" + wapi_key
     # weather_hourly_url = wapi_hourly + "30760" + "?apikey=" + wapi_key #Salzburg
@@ -122,7 +122,7 @@ def weather_api(location):
     precipitation_list = []
     for i in weather_hourly_json:
         precipitation_list.append(i["PrecipitationProbability"])
-    print precipitation_list
+#     print precipitation_list
     light_it_up(precipitation_list)
     return
 
@@ -163,8 +163,8 @@ def light_it_up(forecast):
             print "Probability is " + str(i) + "%, so grab your brollie!"
             strip.setPixelColorRGB(count, 0, 255, 0)
             strip.show()
-        count =+ 1
-        time.sleep(0.5)
+        count += 1
+        time.sleep(0.2)
 
 def main():
 #     weather_url = "http://www.accuweather.com/en/at/salzburg/30760/hourly-weather-forecast/30760"
