@@ -11,7 +11,7 @@ from neopixel import *
 import ipgetter
 import RPi.GPIO as GPIO
 import Adafruit_MPR121.MPR121 as MPR121
-impo#rt uinput
+# import uinput
 
 
 salzburg = "30760"
@@ -33,20 +33,19 @@ def cap_sensor():
         print ("Error initializing MPR121. Check wiring!")
         sys.exit()
     print ("Capacitive Sensor. Press CTRL-C to end")
-#     last_touched = cap.touched()
-    touched = cap.touched()
+    last_touched = cap.touched()
     while True:
-#         current_touched = cap.touched()
+        current_touched = cap.touched()
         for pin, key in key_mapping.iteritems():
-            pin_bit = 1 << i
-            if touched & pin_bit:
+            pin_bit = 1 << pin
+            if current_touched & pin_bit and not last_touched & pin_bit:
 #                 print ('{0} touched!'.format(i))
                 logging.debug('Input {0} touched'.format(pin))
                 print pin,key
                 weather_api(key)
-#             if not current_touched & pin_bit and last_touched & pin_bit:
-#                 print ('{0} released!'.format(i))
-#         last_touched = current_touched
+            if not current_touched & pin_bit and last_touched & pin_bit:
+                print ('{0} released!'.format(i))
+        last_touched = current_touched
         time.sleep(0.1)
     
 
