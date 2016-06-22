@@ -39,8 +39,8 @@ def cap_sensor():
         for pin, key in key_mapping.iteritems():
             pin_bit = 1 << pin
             if current_touched & pin_bit and not last_touched & pin_bit:
-#                 print ('{0} touched!'.format(i))
-                logging.debug('Input {0} touched'.format(pin))
+                print ('{0} touched!'.format(i))
+#                 logging.debug('Input {0} touched'.format(pin))
                 print pin,key
                 weather_api(key)
             if not current_touched & pin_bit and last_touched & pin_bit:
@@ -152,15 +152,15 @@ def light_it_up(forecast):
     for i in forecast:
         if i < 30:
             print "Probability is " + str(i) + "%, so a low chance of rain"
-            strip.setPixelColorRGB(count, 255, 0, 0) #GRB
+            strip.setPixelColorRGB(i, 255, 0, 0) #GRB
             strip.show()
         elif i < 60:
             print "Probability is " + str(i) + "%, it's looking a bit dodgy out there"
-            strip.setPixelColorRGB(count, 191, 255, 0)
+            strip.setPixelColorRGB(i, 191, 255, 0)
             strip.show()
         else:
             print "Probability is " + str(i) + "%, so grab your brollie!"
-            strip.setPixelColorRGB(count, 0, 255, 0)
+            strip.setPixelColorRGB(i, 0, 255, 0)
             strip.show()
         time.sleep(0.5)
 
