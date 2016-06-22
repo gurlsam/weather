@@ -124,6 +124,7 @@ def colorWipe(strip, color, wait_ms=50):
         
 ## Function to send weather data to Neopixel LEDs ##
 def light_it_up(forecast):
+    forecast = forecast[:8]
     print forecast
     LED_COUNT = 8 # Number of LED pixels.
     LED_PIN = 18 # GPIO pin connected to the pixels (must support PWM!).
@@ -138,7 +139,7 @@ def light_it_up(forecast):
     strip.setBrightness(20)
     # strip.setPixelColorRGB(0, 255, 0, 0) #set to green
     count = 0
-    if count < 8:
+    if (count < 8):
         for i in forecast:
             if i < 30:
                 print "Probability is " + str(i) + "%, so a low chance of rain"
