@@ -141,18 +141,20 @@ def light_it_up(forecast):
     if count < 8:
         for i in forecast:
             if i < 30:
-                print "Probability is " + " so a low chance of rain"
+                print "Probability is " + str(i) + "%, so a low chance of rain"
                 strip.setPixelColorRGB(count, 255, 0, 0) #GRB
                 strip.show()
+                count += 1
             elif i < 60:
-                print "Probability is " + " , it's looking a bit dodgy out there"
+                print "Probability is " + str(i) + "%, it's looking a bit dodgy out there"
                 strip.setPixelColorRGB(count, 191, 255, 0)
                 strip.show()
+                count += 1
             else:
-                print "Probability is " + " so grab your brollie!"
+                print "Probability is " + str(i) + "%, so grab your brollie!"
                 strip.setPixelColorRGB(count, 0, 255, 0)
                 strip.show()
-            count += 1
+                count += 1
             time.sleep(0.5)
 
 def main():
@@ -162,9 +164,9 @@ def main():
 #     weather_url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
 #     data_scraped = scrape_weather(weather_url)
 #     button(locations_dict)
-#     rain_forecast = weather_api()
-#     light_it_up(rain_forecast)
-    cap_sensor()
+    rain_forecast = weather_api()
+    light_it_up(rain_forecast)
+#     cap_sensor()
 #     colorWipe(strip, Color(0, 0, 255)) #Green Wipe
 
 if __name__ == '__main__':
