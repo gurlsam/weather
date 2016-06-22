@@ -125,7 +125,6 @@ def colorWipe(strip, color, wait_ms=50):
 ## Function to send weather data to Neopixel LEDs ##
 def light_it_up(forecast):
     forecast = forecast[:8]
-    print forecast
     LED_COUNT = 8 # Number of LED pixels.
     LED_PIN = 18 # GPIO pin connected to the pixels (must support PWM!).
     LED_FREQ_HZ = 800000 # LED signal frequency in hertz (usually 800khz)
@@ -138,25 +137,20 @@ def light_it_up(forecast):
     strip.begin()
     strip.setBrightness(20)
     # strip.setPixelColorRGB(0, 255, 0, 0) #set to green
-    count = 0
-    if (count < 8):
-        for i in forecast:
-            if i < 30:
-                print "Probability is " + str(i) + "%, so a low chance of rain"
-                strip.setPixelColorRGB(count, 255, 0, 0) #GRB
-                strip.show()
-                count += 1
-            elif i < 60:
-                print "Probability is " + str(i) + "%, it's looking a bit dodgy out there"
-                strip.setPixelColorRGB(count, 191, 255, 0)
-                strip.show()
-                count += 1
-            else:
-                print "Probability is " + str(i) + "%, so grab your brollie!"
-                strip.setPixelColorRGB(count, 0, 255, 0)
-                strip.show()
-                count += 1
-            time.sleep(0.5)
+    for i in forecast:
+        if i < 30:
+            print "Probability is " + str(i) + "%, so a low chance of rain"
+            strip.setPixelColorRGB(count, 255, 0, 0) #GRB
+            strip.show()
+        elif i < 60:
+            print "Probability is " + str(i) + "%, it's looking a bit dodgy out there"
+            strip.setPixelColorRGB(count, 191, 255, 0)
+            strip.show()
+        else:
+            print "Probability is " + str(i) + "%, so grab your brollie!"
+            strip.setPixelColorRGB(count, 0, 255, 0)
+            strip.show()
+        time.sleep(0.5)
 
 def main():
 #     weather_url = "http://www.accuweather.com/en/at/salzburg/30760/hourly-weather-forecast/30760"
