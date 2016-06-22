@@ -149,19 +149,21 @@ def light_it_up(forecast):
     strip.begin()
     strip.setBrightness(20)
     # strip.setPixelColorRGB(0, 255, 0, 0) #set to green
+    count = 0
     for i in forecast:
         if i < 30:
             print "Probability is " + str(i) + "%, so a low chance of rain"
-            strip.setPixelColorRGB(i, 255, 0, 0) #GRB
+            strip.setPixelColorRGB(count, 255, 0, 0) #GRB
             strip.show()
         elif i < 60:
             print "Probability is " + str(i) + "%, it's looking a bit dodgy out there"
-            strip.setPixelColorRGB(i, 191, 255, 0)
+            strip.setPixelColorRGB(count, 191, 255, 0)
             strip.show()
         else:
             print "Probability is " + str(i) + "%, so grab your brollie!"
-            strip.setPixelColorRGB(i, 0, 255, 0)
+            strip.setPixelColorRGB(count, 0, 255, 0)
             strip.show()
+        count =+ 1
         time.sleep(0.5)
 
 def main():
