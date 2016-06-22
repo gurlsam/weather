@@ -1,5 +1,8 @@
 import sys
 import time
+import atexit
+import logging
+import subprocess
 import urllib2
 import json, requests
 from pprint import pprint
@@ -8,11 +11,17 @@ from neopixel import *
 import ipgetter
 import RPi.GPIO as GPIO
 import Adafruit_MPR121.MPR121 as MPR121
+impo#rt uinput
+
 
 salzburg = "30760"
-locations_dict = {"Salzburg": 30760, "Linz": 30332, "Maidenhead": 326269, 
-                  "Vancouver": 53286, "London": 328328, "Sydney": 22889, 
-                  "Berlin": 178087}
+key_mapping = {
+               0: "274087",     #Lisbon
+               1: "307297",     #Barcelona
+               2: "623",        #Paris
+               3: "178087",     #Berlin
+               4: "30760",      #Salzburg
+                }
 
 ## Function for capacitive touch sensor
 def cap_sensor():
@@ -24,18 +33,20 @@ def cap_sensor():
         print ("Error initializing MPR121. Check wiring!")
         sys.exit()
     print ("Capacitive Sensor. Press CTRL-C to end")
-    last_touched = cap.touched()
+#     last_touched = cap.touched()
+    touched = cap.touched()
     while True:
-        current_touched = cap.touched()
-        for i in range(12):
+#         current_touched = cap.touched()
+        for pin, key in key_mapping.iteritems():
             pin_bit = 1 << i
-            if current_touched & pin_bit and not last_touched & pin_bit:
-                print current_touched + pin-bit
-                print ('{0} touched!'.format(i))
-                weather_api()
-            if not current_touched & pin_bit and last_touched & pin_bit:
-                print ('{0} released!'.format(i))
-        last_touched = current_touched
+            if touched & pin_bit:
+#                 print ('{0} touched!'.format(i))
+                logging.debug('Input {0} touched'.format(pin))
+                print pin,key
+                weather_api(key)
+#             if not current_touched & pin_bit and last_touched & pin_bit:
+#                 print ('{0} released!'.format(i))
+#         last_touched = current_touched
         time.sleep(0.1)
     
 
@@ -87,7 +98,7 @@ def scrape_weather(weather_url):
     return weather_dict
 
 ## Function to get Weather via API ##
-def weather_api():
+def weather_api(location):
     myip = ipgetter.myip()
     locator_api = "http://dataservice.accuweather.com/locations/v1/cities/ipaddress"
     wapi_key = "a8Rw8CQWQCN2KabjmJRnbkG7UdldAlIX"
@@ -98,7 +109,8 @@ def weather_api():
     myloc_json = requests.get(myloc_url).json()
     myloc_name = myloc_json["EnglishName"]
     myloc_key = myloc_json["Key"]
-    weather_hourly_url = wapi_hourly + myloc_key + "?apikey=" + wapi_key
+#     weather_hourly_url = wapi_hourly + myloc_key + "?apikey=" + wapi_key
+    weather_hourly_url = wapi_hourly + location + "?apikey=" + wapi_key
     # weather_hourly_url = wapi_hourly + "30760" + "?apikey=" + wapi_key #Salzburg
     # weather_hourly_url = wapi_hourly + "30332" + "?apikey=" + wapi_key #Linz
     # weather_hourly_url = wapi_hourly + "326269" + "?apikey=" + wapi_key #Maidenhead
