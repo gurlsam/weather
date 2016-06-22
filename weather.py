@@ -31,10 +31,10 @@ def cap_sensor():
             pin_bit = 1 << i
             if current_touched & pin_bit and not last_touched & pin_bit:
                 print current_touched + pin-bit
-                print ('{0} touched!' .format(i))
+                print ('{0} touched!'.format(i))
                 weather_api()
             if not current_touched & pin_bit and last_touched & pin_bit:
-                print ('{0} released!' .format(i))
+                print ('{0} released!'.format(i))
         last_touched = current_touched
         time.sleep(0.1)
     
@@ -160,9 +160,9 @@ def main():
 #     weather_url = "http://www.accuweather.com/en/de/berlin/10178/hourly-weather-forecast/178087"
 #     data_scraped = scrape_weather(weather_url)
 #     button(locations_dict)
-    rain_forecast = weather_api()
-    light_it_up(rain_forecast)
-#     cap_sensor()
+#     rain_forecast = weather_api()
+#     light_it_up(rain_forecast)
+    cap_sensor()
 #     colorWipe(strip, Color(0, 0, 255)) #Green Wipe
 
 if __name__ == '__main__':
