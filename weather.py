@@ -29,6 +29,8 @@ def cap_sensor():
         current_touched = cap.touched()
         for i in range(12):
             pin_bit = 1 << i
+            if pin_bit == 2:
+                print "yay"
             if current_touched & pin_bit and not last_touched & pin_bit:
                 print ('{0} touched!' .format(i))
                 weather_api()
